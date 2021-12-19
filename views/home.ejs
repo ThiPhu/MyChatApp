@@ -14,15 +14,17 @@
 
 <body>
     <div id="container" class="container">
-        <h1 class="text-center" style="color:white">Midterm WebRTC Room Video Call</h1>
-        <div class="row vertical-center d-flex justify-content-center align-items-center">
-            <div class="col-6 d-flex justify-content-center align-items-center">
-                <a href="/video/" type="button" class="btn btn-primary">Tạo phòng call</a>
-            </div>
-            <div class="col-6 d-flex justify-content-center align-items-center">
-                <div class="input-group mb-3" style="width:50%">
-                    <input type="text" name="roomId" class="input_roomId form-control" placeholder="Nhập ID phòng">
-                    <button type="button" class="input-group-text input_roomId_btn btn btn-primary">Tìm phòng</button>
+        <div class="main-wrapper">
+            <h1 class="text-center mb-5" style="color:white">Midterm WebRTC Room Video Call</h1>
+            <div class="vertical-center d-flex flex-column flex-md-row justify-content-center align-items-center" style="margin: 0 auto; gap:20px">
+                <!-- <div class="col col-md-6 d-flex justify-content-center align-items-center mb-3"> -->
+                    <a href="/video/" type="button" class="btn btn-primary mb-3">Tạo phòng chat</a>
+                <!-- </div> -->
+                <div class="d-flex justify-content-center align-items-center flex-fill mb-3">
+                    <div class="input-group">
+                        <input type="text" name="roomId" class="input_roomId form-control" placeholder="Nhập ID phòng">
+                        <button type="button" class="input-group-text input_roomId_btn btn btn-primary">Tham gia phòng</button>
+                    </div>
                 </div>
             </div>
         </div>

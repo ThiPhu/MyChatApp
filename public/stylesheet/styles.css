@@ -28,10 +28,19 @@ video {
   color: #fff;
 }
 
+.main-wrapper{
+  margin: 0 auto;
+  width: 660px;
+}
+
+@media screen and (max-width: 680px) {
+  .main-wrapper{
+    width: 100%;
+  }
+}
+
 .container {
+  margin-top: 10rem;
   max-width: 100%;
   width: 100%;
-  bottom: 50%;
-  top: 40%;
-  position: absolute;
 }

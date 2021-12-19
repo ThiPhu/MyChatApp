@@ -7,11 +7,6 @@ const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
 const port = process.env.PORT || 8080;
 
-const { PeerServer } = require('peer');
-
-const peerServer = PeerServer(server);
-app.use('/peerjs', peerServer);
-
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
@@ -36,13 +31,24 @@ io.on('connection', socket => {
   // Event listener - Khi ai tham gia phòng video call, sẽ truyền roomId và userId
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId);
+
+    // user_list.push(userId)
+    // console.log(user_list)
+
+    // Broadcast đến các user khác về sự hiện diện của user mới join
     socket.broadcast.to(roomId).emit('user-connected', userId);
 
     // Disconnect
     socket.on('disconnect', () => {
+    // Broadcast đến các user khác về sự kiện đăng xuất của user 
       socket.broadcast.to(roomId).emit('user-disconnected', userId);
     });
   });
+
+  // socket.on('new-user', (userId)=>{
+  //   user_list.push(userId)
+  //   console.log(user_list)
+  // })
 });
 
 server.listen(port, () => {
