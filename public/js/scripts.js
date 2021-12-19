@@ -2,8 +2,8 @@ const socket= io('/')
 const videoGrid=document.getElementById('video_box')
 // Setup peer sv
 const myPeer= new Peer(undefined,{
-    host:'/',
-    port:'8000',
+    host:'my-rtc-chat-app.herokuapp.com',
+    port:'443',
 })
 
 const myVideo=document.createElement('video')
