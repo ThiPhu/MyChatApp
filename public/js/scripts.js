@@ -3,7 +3,7 @@ const videoGrid=document.getElementById('video_box')
 // Setup peer sv
 const myPeer= new Peer(undefined,{
     host:'my-videochat-app.herokuapp.com',
-    port:'443',
+    port: 443,
     secure: true,
 })
 
