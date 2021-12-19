@@ -1,7 +1,8 @@
 const socket= io.connect('https://my-videochat-app.herokuapp.com/')
 const videoGrid=document.getElementById('video_box')
+
 // Setup peer sv
-const myPeer= new Peer(undefined,{
+const peer = new Peer(undefined,{
     host:'my-videochat-app.herokuapp.com',
     port: 443,
     secure: true,
@@ -17,7 +18,7 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream=>{
     addVideoStream(myVideo,stream)
 
-    myPeer.on('call', call =>{
+    peer.on('call', call =>{
         call.answer(stream)
 
         const video = document.createElement('video')
@@ -40,7 +41,7 @@ socket.on('user-disconnected', userId =>{
     console.log("User", userId, "DISCONNECTED!")
 })
 
-myPeer.on('open',id=>{
+peer.on('open',id=>{
     socket.emit('join-room',ROOM_ID,id)
 })
 
@@ -54,7 +55,7 @@ function addVideoStream(video,stream){
 
 function connectToNewUser(userId,stream){
     // Call a user and send video stream
-    const call = myPeer.call(userId, stream)
+    const call = peer.call(userId, stream)
 
     const video = document.createElement('video')
 
