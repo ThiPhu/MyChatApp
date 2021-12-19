@@ -1,10 +1,11 @@
 const express = require('express');
 
 const app = express();
+require("dotenv").config();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
-const PORT = 8080;
+const port = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -36,6 +37,6 @@ io.on('connection', socket => {
 
 });
 
-server.listen(PORT, () => {
-  console.log(`Server is running on ${PORT }`);
+server.listen(port, () => {
+  console.log(`Server is running on ${port }`);
 });
