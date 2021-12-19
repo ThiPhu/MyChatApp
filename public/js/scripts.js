@@ -4,6 +4,7 @@ const videoGrid=document.getElementById('video_box')
 const myPeer= new Peer(undefined,{
     host:'my-rtc-chat-app.herokuapp.com',
     port:'443',
+    secure: true,
 })
 
 const myVideo=document.createElement('video')
