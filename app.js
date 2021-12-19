@@ -7,6 +7,11 @@ const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
 const port = process.env.PORT || 8080;
 
+const { PeerServer } = require('peer');
+
+const peerServer = PeerServer(server);
+
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
@@ -14,6 +19,8 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.redirect(`/${uuidV4()}`);
 });
+
+app.use('/peerjs', peerServer)
 
 // Lấy mã ID Url phòng call thông qua uuid
 app.get('/:room', (req, res) => {
