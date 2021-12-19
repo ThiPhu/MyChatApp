@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-require("dotenv").config();
+require('dotenv').config();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
@@ -10,20 +10,22 @@ const port = process.env.PORT || 8080;
 const { PeerServer } = require('peer');
 
 const peerServer = PeerServer(server);
-app.use('/peerjs', peerServer)
+app.use('/peerjs', peerServer);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // Dẫn đến một trang có v4 uid - Mã ID url của phòng call
 app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}`);
+  return res.render('home');
 });
 
-
+app.get('/video', (req, res) => {
+  res.redirect(`/video/${uuidV4()}`);
+});
 
 // Lấy mã ID Url phòng call thông qua uuid
-app.get('/:room', (req, res) => {
+app.get('/video/:room', (req, res) => {
   res.render('room', { roomId: req.params.room });
 });
 
@@ -32,18 +34,17 @@ app.get('/:room', (req, res) => {
 // Connection để xử lý khi có nhiều người tham gia
 io.on('connection', socket => {
   // Event listener - Khi ai tham gia phòng video call, sẽ truyền roomId và userId
-  socket.on('join-room', (roomId, userId) => { 
-    socket.join(roomId)
-    socket.broadcast.to(roomId).emit('user-connected', userId)
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId);
+    socket.broadcast.to(roomId).emit('user-connected', userId);
 
-    // Disconnect 
+    // Disconnect
     socket.on('disconnect', () => {
-      socket.broadcast.to(roomId).emit('user-disconnected', userId)
-    })
+      socket.broadcast.to(roomId).emit('user-disconnected', userId);
+    });
   });
-
 });
 
 server.listen(port, () => {
-  console.log(`Server is running on ${port }`);
+  console.log(`Server is running on ${port}`);
 });
