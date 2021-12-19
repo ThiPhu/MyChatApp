@@ -1,4 +1,4 @@
-const socket= io('/')
+const socket= io.connect('https://my-videochat-app.herokuapp.com/')
 const videoGrid=document.getElementById('video_box')
 // Setup peer sv
 const myPeer= new Peer(undefined,{
